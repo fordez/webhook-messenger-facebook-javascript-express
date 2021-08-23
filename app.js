@@ -53,7 +53,7 @@ function callSendApi(response){
     request({
         "uri":"https://graph.facebook.com/me/messages/",
         "qs":{
-            "access_token": "EAAGF6XxARsMBAOurdPL2X0oOYQjEsZBSG8bknihozFZCl3cJb3MfOYGT48dsBL9LBnmSLrcYHHaitnuaoQ79u5ftEHq1KyDuCyNdhnGHDzYBlBxwtwrNjiWSPI24x8oSHF6QOtV2L4xCa3VjcrSgveMsBhcD4Y6dGczL5lxvoQnPBYakpU"
+            "access_token": "aqui va el access_token"
         },
         "method": "POST",
         "json": response
