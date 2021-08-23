@@ -28,32 +28,44 @@ app.post("/webhook",function(req, res){
     const webhook_event = req.body.entry[0];
     if(webhook_event.messaging){
         webhook_event.messaging.forEach(event => {
-            console.log(event.message.text);
-            handleMessage(event);
+            handleEvent(event.sender.id, event);
         });
     }
     res.sendStatus(200);
 });
 
-function handleMessage(event){
-    const senderId = event.sender.id;
-    const messageText = event.message.text;
+function handleEvent(senderId, event) {
+    if(event.message){
+        handleMessage(senderId, event.message)
+    }
+       
+}
+
+function handleMessage(senderId, event) {
+    if(event.text){
+        defaultMessage(senderId);   
+    }
+    
+}
+
+function defaultMessage(senderId){
     const messageData = {
-        recipient:{
-            id: senderId
+        "recipient":{
+            "id": senderId
         },
-        message:{
-            text: messageText
+        "message":{
+
+            "text":"Hola, un gusto en atenderte soy Chatrobot"
         }
     }
-    callSendApi(messageData)
+    callSendApi(messageData);
 }
 
 function callSendApi(response){
     request({
         "uri":"https://graph.facebook.com/me/messages/",
         "qs":{
-            "access_token": "aqui va el access_token"
+            "access_token": "EAAGF6XxARsMBAFBXTiKhg6sE6OqAtpn3R7Hz9sIXvL3RQ275ebEHSUJLRoKfCDlQSBva6ZB5hagGh62pXNorMilH9Sm4RhQhZBJPHZBbSqo8FVGvjJZAwau93svQEvPwsn4RZCQl8kTXMRPwig5FkhcLlxeUJJ3CXGabXTJLOMUtm85vlb7Y1"
         },
         "method": "POST",
         "json": response
